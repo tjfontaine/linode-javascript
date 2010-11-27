@@ -1,0 +1,19 @@
+Linode API Javascript Bindings
+
+linode.api.js -- Base class for accessing the API, dependency on jquery for http
+  instantiate with: new LinodeApi('yourapikey')
+  usage: api.<api_method>(<json with paramters>, callback)
+  method names have . changed to _ i.e. linode.list is really linode_list
+  the callback takes one parameter, the results from the jquery call
+
+linode.cache.js -- Cache class to handle holding local copies of API objects
+  instantiate with: new LinodeCache([LinodeApi])
+  usage:
+    .fill(callback) -- will iterate all APIs and store them locally, callback will
+      fire when all APIs have been completed
+    .get(key, id) -- get a single object by id for instance: .get('LINODEID', 1234)
+      this will also resolve subobjects LINODEID -> DATACENTERID
+    .getAll(key) -- will return all objects for a key, for instance: .getAll('LINODEID')
+
+linode.datalink.js -- For use with jquery.datalink.js, provides conversion for
+  linode objects and form elements.
