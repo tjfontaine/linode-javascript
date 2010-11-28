@@ -20,17 +20,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-function passthrough(value, source, target)
-{
+function passthrough(value, source, target) {
   $(target).val(value)
 }
 
-function toCheckbox(value, source, target)
-{
-  target.checked = value == 1 ? true : false;
+var linode_boolean = {
+  convert: function(value) {
+    return value.checked
+  },
+  convertBack: function(value, source, target){
+    target.checked = value == 1 ? true : false;
+  },
 }
 
-LINODE_OBJ_CONVERSION = {
+var linode_string = {
+  convert: function(value) {
+    return value
+  },
+  convertBack: passthrough,
+}
+
+var LINODE_OBJ_CONVERSION = {
   LINODEID: {
     LABEL: {
       convertBack: passthrough,
@@ -42,20 +52,23 @@ LINODE_OBJ_CONVERSION = {
         $(target).val(cache.status_map[value.toString()])
       },
     },
-    TOTALRAM: {
+    TOTALRAM: linode_string,
+    TOTALHD: linode_string,
+    TOTALXFER: linode_string,
+    BACKUPSENABLED: linode_boolean,
+    WATCHDOG: linode_boolean,
+    ALERT_BWIN_ENABLED: linode_boolean,
+    ALERT_BWOUT_ENABLED: linode_boolean,
+    ALERT_BWQUOTA_ENABLED: linode_boolean,
+    ALERT_DISKIO_ENABLED: linode_boolean,
+    ALERT_CPU_ENABLED: linode_boolean,
+    ALERT_CPU_THRESHOLD: linode_string,
+    ALERT_DISKIO_THRESHOLD: linode_string,
+    ALERT_BWIN_THRESHOLD: linode_string,
+    ALERT_BWOUT_THRESHOLD: linode_string,
+    ALERT_BWQUOTA_THRESHOLD: linode_string,
+    LPM_DISPLAYGROUP: {
       convertBack: passthrough,
-    },
-    TOTALHD: {
-      convertBack: passthrough,
-    },
-    TOTALXFER: {
-      convertBack: passthrough,
-    },
-    BACKUPSENABLED: {
-      convertBack: toCheckbox,
-    },
-    WATCHDOG: {
-      convertBack: toCheckbox,
     },
     DATACENTERID: {
       convertBack: function(value, source, target)
