@@ -40,6 +40,12 @@ var linode_string = {
   convertBack: passthrough,
 }
 
+var linode_select = {
+  convertBack: function(value, source, target) {
+    $(target).val(value.toString().toLowerCase())
+  }
+}
+
 var LINODE_OBJ_CONVERSION = {
   LINODEID: {
     LABEL: {
@@ -67,14 +73,21 @@ var LINODE_OBJ_CONVERSION = {
     ALERT_BWIN_THRESHOLD: linode_string,
     ALERT_BWOUT_THRESHOLD: linode_string,
     ALERT_BWQUOTA_THRESHOLD: linode_string,
-    LPM_DISPLAYGROUP: {
-      convertBack: passthrough,
-    },
+    LPM_DISPLAYGROUP: linode_string,
     DATACENTERID: {
       convertBack: function(value, source, target)
       {
         $(target).val(value.LOCATION)
       },
     },
+  },
+  DOMAINID: {
+    DOMAIN: linode_string,
+    DESCRIPTION: linode_string,
+    TYPE: linode_select,
+    STATUS: linode_select,
+    EXPIRE_SEC: linode_select,
+    TTL_SEC: linode_select,
+    RETRY_SEC: linode_select,
   },
 }

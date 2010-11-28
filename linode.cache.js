@@ -35,6 +35,11 @@ function LinodeCache(initial_apis)
     '3': 'Shutting Down (not in use)',
     '4': 'Saved to Disk (not in use)',
   }
+  this.domain_status = {
+    '1': 'Active',
+    '2': 'Edit Mode',
+    '3': 'Inactive',
+  }
   this.cache_map = {
     common: {
       'avail.linodeplans': {
