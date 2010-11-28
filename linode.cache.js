@@ -122,7 +122,7 @@ function LinodeCache(initial_apis)
   {
     for(key in item)
     {
-      if(key.toLowerCase() != item.key.toLowerCase() && this.cache[key])
+      if(key != item.key && this.cache[key])
       {
         item[key] = this.cache[key][item[key]]
       }
