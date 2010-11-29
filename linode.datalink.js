@@ -46,6 +46,12 @@ var linode_select = {
   }
 }
 
+var linode_foreignkey = {
+  convertBack: function(value, source, target) {
+    $(target).val(value[target.name])
+  }
+}
+
 var LINODE_OBJ_CONVERSION = {
   LINODEID: {
     LABEL: {
@@ -77,7 +83,9 @@ var LINODE_OBJ_CONVERSION = {
     DATACENTERID: {
       convertBack: function(value, source, target)
       {
-        $(target).val(value.LOCATION)
+        if(value){
+          $(target).val(value.LOCATION)  
+        }
       },
     },
   },
@@ -91,6 +99,7 @@ var LINODE_OBJ_CONVERSION = {
     RETRY_SEC: linode_select,
   },
   RESOURCEID: {
+    DOMAINID: linode_foreignkey,
     PROTOCOL: linode_select,
     NAME: linode_string,
     WEIGHT: linode_string,
