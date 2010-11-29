@@ -90,4 +90,13 @@ var LINODE_OBJ_CONVERSION = {
     TTL_SEC: linode_select,
     RETRY_SEC: linode_select,
   },
+  RESOURCEID: {
+    PROTOCOL: linode_select,
+    NAME: linode_string,
+    WEIGHT: linode_string,
+    PRIORITY: linode_string,
+    TTL_SEC: linode_select,
+    TYPE: linode_select,
+    TARGET: linode_string,
+  },
 }
