@@ -109,12 +109,21 @@ function LinodeCache(initial_apis)
   {
     return this.resolve(this.cache[key][id])
   }
-  this.getAll = function(key)
+  this.getAll = function(key, filter)
   {
     var objs = []
     for(k in this.cache[key])
     {
-      objs.push(this.get(key, k))
+      var obj = this.get(key, k)
+      if(filter) {
+        if(filter(obj)) {
+          objs.push(this.get(key, k))
+        }
+      }
+      else
+      {
+        objs.push(this.get(key, k))        
+      }
     }
     return objs
   }
