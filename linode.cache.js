@@ -133,7 +133,10 @@ function LinodeCache(initial_apis)
     {
       if(key != item.key && this.cache[key])
       {
-        item[key] = this.cache[key][item[key]]
+        var refobj = this.cache[key][item[key]]
+        if(refobj){
+          item[key] = refobj
+        }
       }
     }
     return item
