@@ -95,22 +95,37 @@ function LinodeCache(initial_apis)
       }
     }
   }
+  this.normalizeObject = function (obj) {
+    var newobj = {}
+    for (k in obj) {
+      var ok = k
+      if(k != 'key' && k != 'api') {
+        k = k.toUpperCase()
+      }
+      newobj[k] = obj[ok]
+    }
+    return newobj
+  }
   this.add = function (key, obj)
   {
+    key = key.toUpperCase()
     if(!this.cache[key])
     {
       this.cache[key] = {
       }
     }
+    obj = this.normalizeObject(obj)
     obj.key = key
     this.cache[key][obj[key]] = obj
   }
   this.get = function(key, id)
   {
+    key = key.toUpperCase()
     return this.resolve(this.cache[key][id])
   }
   this.getAll = function(key, filter)
   {
+    key = key.toUpperCase()
     var objs = []
     for(k in this.cache[key])
     {
