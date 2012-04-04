@@ -1,0 +1,18 @@
+<html>
+  <script type="text/javascript" src="./linode.auto.api.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#run").click(function () {
+        var api = new LinodeApi($("api_key").val());
+        api.domain_list({}, function (results) {
+          $("#results").html('<pre>' + JSON.stringify(results) + '</pre>');
+        });
+      });  
+    });
+  </script>
+  <body>
+    <p>Key <input type="text" id="api_key" /><input type="submit" value="run" id="run"></p>
+    <div id="results"></div>
+  </body>
+</html>
